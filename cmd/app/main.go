@@ -1,9 +1,13 @@
 package main
 
 import (
+	"github.com/repooooo/auth/internal/app"
 	"github.com/repooooo/auth/internal/config"
+	"github.com/repooooo/go-utils/loader"
 	"log/slog"
 	"os"
+	"os/signal"
+	"syscall"
 )
 
 const (
@@ -13,11 +17,23 @@ const (
 )
 
 func main() {
-	cfg := config.MustLoad()
+	cfg := config.New()
+
+	configPath := loader.FetchConfigPath()
+	cl := loader.NewConfigLoader(configPath)
+	cl.MustLoad(cfg)
 
 	log := setupLogger(cfg.Env)
 
-	log.Info("starting auth service")
+	application := app.New(log, cfg.GRPC.Port, cfg.DSN)
+	go application.GRPCServer.MustRun()
+
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, syscall.SIGTERM, syscall.SIGINT)
+
+	signalStop := <-stop
+	log.Info("stopping application", slog.String("signal", signalStop.String()))
+	application.GRPCServer.Stop()
 }
 
 func setupLogger(env string) *slog.Logger {
