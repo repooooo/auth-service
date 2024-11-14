@@ -1,9 +1,8 @@
 FROM golang:1.22-alpine AS builder
 RUN apk update && apk add --no-cache git
 
-ARG GITHUB_TOKEN
-ENV GITHUB_TOKEN=$GITHUB_TOKEN
-RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+RUN --mount=type=secret,id=github_token \
+    git config --global url."https://$(cat /run/secrets/github_token)@github.com/".insteadOf "https://github.com/"
 
 WORKDIR /usr/app
 COPY go.mod go.sum ./

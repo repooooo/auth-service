@@ -9,8 +9,3 @@ run: build
 
 test:
 	go test -v ./tests
-
-docker-build:
-	docker build --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} -f Dockerfile -t auth-service:latest .
-docker-run:
-	docker run -v $(shell pwd)/config/config.yaml:/root/config.yaml auth-service:latest ./app --config=/root/config.yaml
