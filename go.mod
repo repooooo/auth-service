@@ -1,4 +1,4 @@
-module github.com/repooooo/auth
+module github.com/repooooo/auth-service
 
 go 1.23
 

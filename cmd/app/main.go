@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/repooooo/auth/internal/app"
-	"github.com/repooooo/auth/internal/config"
+	"github.com/repooooo/auth-service/internal/app"
+	"github.com/repooooo/auth-service/internal/config"
 	"github.com/repooooo/go-utils/loader"
 	"log/slog"
 	"os"
