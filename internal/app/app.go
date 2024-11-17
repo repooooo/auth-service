@@ -1,9 +1,9 @@
 package app
 
 import (
-	grpcapp "github.com/repooooo/auth/internal/app/grpc"
-	"github.com/repooooo/auth/internal/service/auth"
-	"github.com/repooooo/auth/internal/storage/postgres"
+	grpcapp "github.com/repooooo/auth-service/internal/app/grpc"
+	"github.com/repooooo/auth-service/internal/service/auth"
+	"github.com/repooooo/auth-service/internal/storage/postgres"
 	"log/slog"
 )
 

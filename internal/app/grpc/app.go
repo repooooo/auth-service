@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/logging"
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/recovery"
-	authgrpc "github.com/repooooo/auth/internal/transport/grpc/auth"
+	authgrpc "github.com/repooooo/auth-service/internal/transport/grpc/auth"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
