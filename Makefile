@@ -1,19 +1,19 @@
 .PHONY: build run test init-test-config
-include .env
 
-build:
-	go build -o ./bin/app ./cmd/app/main.go
-
-run: build
-	./bin/app --config=./config/config.yaml
-
-test:
-	go test -v ./tests
+#build:
+#	go build -o ./bin/app ./cmd/app/main.go
+#
+#run: build
+#	./bin/app --config=./config/config.yaml
+#
+#test:
+#	go test -v ./tests
 
 SECRETS_DIR=./tests/test-config/secrets
 LOGS_DIR=./tests/test-config/logs
 GITHUB_TOKEN_FILE=$(SECRETS_DIR)/github_token
 AUTH_SERVICE_LOG_FILE=$(LOGS_DIR)/auth-service.log
+DOCKER_COMPOSE_FILE=./tests/test-config/docker-compose.yaml
 
 init-test-config:
 	@echo "Checking for required files..."
@@ -41,3 +41,9 @@ init-test-config:
 	else \
 		echo "auth-service.log already exists."; \
 	fi
+
+build:
+	docker-compose -f $(DOCKER_COMPOSE_FILE) build
+
+run: build
+	docker-compose -f $(DOCKER_COMPOSE_FILE) up
