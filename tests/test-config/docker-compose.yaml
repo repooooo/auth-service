@@ -1,0 +1,46 @@
+services:
+
+  auth-service:
+    build:
+      context: ../../
+      secrets:
+        - github_token
+    depends_on:
+      database:
+        condition: service_healthy
+    ports:
+      - "44044:44044"
+    volumes:
+      - "./config.yaml:/root/config.yaml"
+    networks:
+      - test-auth-service-network
+    command: ["sh", "-c", "./app --config=/root/config.yaml"]
+
+  database:
+    image: postgres:14.1-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d postgres -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+#    volumes:
+#      - database-data:/var/lib/postgresql/data
+    networks:
+      - test-auth-service-network
+
+networks:
+  test-auth-service-network:
+    driver: bridge
+#volumes:
+#  database-data:
+
+secrets:
+  github_token:
+    file: secrets/github_token
