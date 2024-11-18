@@ -1,4 +1,4 @@
-env: "local"
+env: "tests"
 grpc:
   port: 44044
   timeout: 5s
