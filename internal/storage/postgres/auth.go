@@ -2,6 +2,7 @@ package postgres
 
 import (
 	"context"
+	"log/slog"
 )
 
 func (s *Storage) Login(
@@ -15,6 +16,13 @@ func (s *Storage) Login(
 	error,
 ) {
 	const operation = "storage.postgres.Login"
+
+	log := s.log.With(
+		slog.String("operation", operation),
+		slog.String("username", username),
+	)
+	// TODO:
+	log.Info("todo login")
 
 	return false, "", "", nil
 }

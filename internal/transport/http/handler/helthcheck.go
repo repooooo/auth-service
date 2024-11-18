@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"github.com/repooooo/go-utils/sl"
 	"log/slog"
 	"net/http"
 )
@@ -15,6 +16,6 @@ func HealthCheck(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewEncoder(w).Encode(status)
 	if err != nil {
-		slog.Error("Failed to encode health check response", "error", err)
+		slog.Error("Failed to encode health check response", sl.Err(err))
 	}
 }
