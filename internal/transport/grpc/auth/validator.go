@@ -7,9 +7,30 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+// ValidatorType is a custom type for mapping validator keys.
+type ValidatorType string
+
+const (
+	// ValidatorTypeLogin is the key for Login request validation.
+	ValidatorTypeLogin ValidatorType = "Login"
+	// ValidatorTypeLogout is the key for Logout request validation.
+	ValidatorTypeLogout ValidatorType = "Logout"
+)
+
 // Validator defines the interface for request validation.
 type Validator interface {
 	Validate(ctx context.Context, req interface{}) error
+}
+
+// ValidatorMap is a wrapper for a map of validators.
+type ValidatorMap map[ValidatorType]Validator
+
+// NewValidatorMap creates and returns a new ValidatorMap.
+func NewValidatorMap() ValidatorMap {
+	return ValidatorMap{
+		ValidatorTypeLogin:  &LoginValidator{},
+		ValidatorTypeLogout: &LogoutValidator{},
+	}
 }
 
 // LoginValidator validates LoginRequest.

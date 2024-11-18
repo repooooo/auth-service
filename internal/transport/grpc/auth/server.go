@@ -12,17 +12,14 @@ import (
 type serverAPI struct {
 	authpb.UnimplementedAuthServiceServer
 	auth       Auth
-	validators map[ValidatorType]Validator
+	validators ValidatorMap
 }
 
 // newServerAPI creates a new instance of serverAPI.
 func newServerAPI(auth Auth) *serverAPI {
 	return &serverAPI{
-		auth: auth,
-		validators: map[ValidatorType]Validator{
-			ValidatorTypeLogin:  &LoginValidator{},
-			ValidatorTypeLogout: &LogoutValidator{},
-		},
+		auth:       auth,
+		validators: NewValidatorMap(),
 	}
 }
 
