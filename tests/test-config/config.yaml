@@ -1,7 +1,0 @@
-env: "tests"
-grpc:
-  port: 44044
-  timeout: 5s
-dsn: "postgresql://postgres:postgres@database:5432/postgres?sslmode=disable"
-http:
-  port: 5050

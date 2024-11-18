@@ -1,13 +1,4 @@
-.PHONY: build run test init-test-config
-
-#build:
-#	go build -o ./bin/app ./cmd/app/main.go
-#
-#run: build
-#	./bin/app --config=./config/config.yaml
-#
-#test:
-#	go test -v ./tests
+.PHONY: build run init-test-config
 
 SECRETS_DIR=./tests/test-config/secrets
 LOGS_DIR=./tests/test-config/logs
