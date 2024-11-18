@@ -19,8 +19,7 @@ type Suite struct {
 }
 
 const (
-	grpcHost          = "localhost"
-	configPathDefault = "./test-config/config.yaml"
+	grpcHost = "localhost"
 )
 
 // New creates new test suite.
@@ -31,8 +30,8 @@ func New(t *testing.T) (context.Context, *Suite) {
 	t.Parallel()
 
 	cfg := config.New()
-
-	cl := loader.NewConfigLoader(configPathDefault)
+	configPath := loader.FetchConfigPath()
+	cl := loader.NewConfigLoader(configPath)
 	cl.MustLoad(cfg)
 
 	ctx, cancelCtx := context.WithTimeout(context.Background(), cfg.GRPC.Timeout)
