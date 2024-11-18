@@ -6,11 +6,14 @@ import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/logging"
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/recovery"
 	authgrpc "github.com/repooooo/auth-service/internal/transport/grpc/auth"
+	"github.com/repooooo/go-utils/sl"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"log/slog"
 	"net"
+	"sync"
+	"time"
 )
 
 type App struct {
@@ -99,11 +102,26 @@ func (a *App) Run() error {
 		return fmt.Errorf("%s: %w", operation, err)
 	}
 
-	log.Info("gRPC server is running", slog.String("address", lis.Addr().String()))
+	var wg sync.WaitGroup
+	wg.Add(1)
 
-	if err := a.gRPCServer.Serve(lis); err != nil {
-		return fmt.Errorf("%s: %w", operation, err)
+	go func() {
+		defer wg.Done()
+
+		if err := a.gRPCServer.Serve(lis); err != nil {
+			log.Error("error starting gRPC server", sl.Err(err))
+		}
+	}()
+
+	select {
+	case <-time.After(1 * time.Second):
+		log.Info("gRPC server is running", slog.String("address", lis.Addr().String()))
+	case <-time.After(10 * time.Second):
+		log.Error("gRPC server failed to start in time")
+		return fmt.Errorf("%s: server did not start in time", operation)
 	}
+
+	wg.Wait()
 
 	return nil
 }

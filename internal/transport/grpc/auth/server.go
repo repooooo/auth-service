@@ -5,6 +5,9 @@ import (
 	authpb "github.com/repooooo/protos/gen/go/auth"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/health"
+	healthpb "google.golang.org/grpc/health/grpc_health_v1"
+	"google.golang.org/grpc/reflection"
 	"google.golang.org/grpc/status"
 )
 
@@ -26,6 +29,18 @@ func newServerAPI(auth Auth) *serverAPI {
 // Register registers the AuthServiceServer with gRPC.
 func Register(gRPC *grpc.Server, auth Auth) {
 	authpb.RegisterAuthServiceServer(gRPC, newServerAPI(auth))
+	RegisterHealthCheck(gRPC)
+
+	// TODO: Not secure. != production
+	reflection.Register(gRPC)
+}
+
+// RegisterHealthCheck register health-check service.
+func RegisterHealthCheck(gRPC *grpc.Server) {
+	healthServer := health.NewServer()
+
+	healthServer.SetServingStatus("auth_service", healthpb.HealthCheckResponse_SERVING)
+	healthpb.RegisterHealthServer(gRPC, healthServer)
 }
 
 func (s *serverAPI) Login(ctx context.Context, request *authpb.LoginRequest) (*authpb.LoginResponse, error) {

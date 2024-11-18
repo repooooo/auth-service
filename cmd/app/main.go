@@ -17,23 +17,36 @@ const (
 )
 
 func main() {
+	// Load configuration
 	cfg := config.New()
-
 	configPath := loader.FetchConfigPath()
 	cl := loader.NewConfigLoader(configPath)
 	cl.MustLoad(cfg)
 
+	// Set up logger
 	log := setupLogger(cfg.Env)
 
-	application := app.New(log, cfg.GRPC.Port, cfg.DSN)
-	go application.GRPCServer.MustRun()
+	// Initialize application with configuration
+	application := app.New(
+		log,
+		cfg.GRPC.Port,
+		cfg.DSN,
+		cfg.HTTP.Port,
+	)
 
+	// Start gRPC and HTTP servers in separate goroutines
+	go application.GRPCServer.MustRun()
+	go application.HTTPServer.MustRun()
+
+	// Listen for termination signals (e.g., SIGTERM, SIGINT)
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, syscall.SIGTERM, syscall.SIGINT)
 
+	// Wait for signal, then stop servers gracefully
 	signalStop := <-stop
 	log.Info("stopping application", slog.String("signal", signalStop.String()))
 	application.GRPCServer.Stop()
+	application.HTTPServer.Stop()
 }
 
 func setupLogger(env string) *slog.Logger {

@@ -9,7 +9,8 @@ services:
       database:
         condition: service_healthy
     ports:
-      - "44044:44044"
+      - "44044:44044" # grpcServer
+      - "5050:5050" # httpServer
     volumes:
       - "./config.yaml:/root/config.yaml"
     networks:
