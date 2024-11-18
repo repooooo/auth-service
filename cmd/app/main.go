@@ -19,7 +19,7 @@ const (
 )
 
 const (
-	defaultLogPath = "/root/logs/auth-service.log"
+	defaultLogPath = "/root/logs/auth-service.json"
 )
 
 func main() {
