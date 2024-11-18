@@ -36,6 +36,8 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/repooooo/go-utils v0.0.4 h1:eCJig216V9JcDMmgMO07vTyBpOS51aOa+xExckkxIRo=
 github.com/repooooo/go-utils v0.0.4/go.mod h1:zPQblNi7kvcJa+GtGhpOu+iWEqQjtdQiThIMYwCgA6g=
+github.com/repooooo/go-utils v0.0.5 h1:ioXJR2v+eti4SXgV24xPiy8jPAWGHeCnRFSS6iuudLE=
+github.com/repooooo/go-utils v0.0.5/go.mod h1:zPQblNi7kvcJa+GtGhpOu+iWEqQjtdQiThIMYwCgA6g=
 github.com/repooooo/protos v0.0.0-20241113151845-d9c5e16ad36a h1:JrswTYWrPZH5Jr4ZjbJbNys21vgzEoqGOCdpXfRtrYM=
 github.com/repooooo/protos v0.0.0-20241113151845-d9c5e16ad36a/go.mod h1:JMe7AIVhbF3hwc2tdZJO8kybpydGHN3XPyndpC5R7QQ=
 github.com/rogpeppe/go-internal v1.13.1 h1:KvO1DLK/DRN07sQ1LQKScxyZJuNnedQ5/wKSR38lUII=

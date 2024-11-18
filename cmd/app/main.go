@@ -1,10 +1,10 @@
 package main
 
 import (
-	"context"
 	"github.com/repooooo/auth-service/internal/app"
 	"github.com/repooooo/auth-service/internal/config"
 	"github.com/repooooo/go-utils/loader"
+	"github.com/repooooo/go-utils/sl"
 	"log/slog"
 	"os"
 	"os/signal"
@@ -88,53 +88,11 @@ func setupLogger(env string) *slog.Logger {
 			panic("Could not open log file: " + err.Error())
 		}
 
-		log = slog.New(NewMultiHandler(
+		log = slog.New(sl.NewMultiHandler(
 			slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}),
 			slog.NewJSONHandler(logFile, &slog.HandlerOptions{Level: slog.LevelDebug}),
 		))
 	}
 
 	return log
-}
-
-type MultiHandler struct {
-	handlers []slog.Handler
-}
-
-func NewMultiHandler(handlers ...slog.Handler) *MultiHandler {
-	return &MultiHandler{handlers: handlers}
-}
-
-func (m *MultiHandler) Handle(ctx context.Context, r slog.Record) error {
-	for _, handler := range m.handlers {
-		if err := handler.Handle(ctx, r); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func (m *MultiHandler) Enabled(ctx context.Context, level slog.Level) bool {
-	for _, handler := range m.handlers {
-		if handler.Enabled(ctx, level) {
-			return true
-		}
-	}
-	return false
-}
-
-func (m *MultiHandler) WithAttrs(attrs []slog.Attr) slog.Handler {
-	var newHandlers []slog.Handler
-	for _, handler := range m.handlers {
-		newHandlers = append(newHandlers, handler.WithAttrs(attrs))
-	}
-	return &MultiHandler{handlers: newHandlers}
-}
-
-func (m *MultiHandler) WithGroup(name string) slog.Handler {
-	var newHandlers []slog.Handler
-	for _, handler := range m.handlers {
-		newHandlers = append(newHandlers, handler.WithGroup(name))
-	}
-	return &MultiHandler{handlers: newHandlers}
 }

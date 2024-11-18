@@ -4,7 +4,7 @@ go 1.23
 
 require (
 	github.com/ilyakaznacheev/cleanenv v1.5.0 // indirect
-	github.com/repooooo/go-utils v0.0.4
+	github.com/repooooo/go-utils v0.0.5
 	github.com/repooooo/protos v0.0.0-20241113151845-d9c5e16ad36a
 	google.golang.org/grpc v1.68.0
 )
