@@ -13,6 +13,7 @@ require (
 	github.com/99designs/gqlgen v0.17.56
 	github.com/brianvoe/gofakeit/v6 v6.28.0
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.1.0
+	github.com/repooooo/graphqls v0.0.6
 	github.com/stretchr/testify v1.9.0
 	gorm.io/driver/postgres v1.5.9
 	gorm.io/gorm v1.25.12
@@ -35,9 +36,9 @@ require (
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/repooooo/graphqls v0.0.5 // indirect
 	github.com/rogpeppe/go-internal v1.13.1 // indirect
 	github.com/sosodev/duration v1.3.1 // indirect
+	github.com/vektah/gqlparser/v2 v2.5.19 // indirect
 	golang.org/x/crypto v0.27.0 // indirect
 	golang.org/x/net v0.29.0 // indirect
 	golang.org/x/sync v0.8.0 // indirect
