@@ -7,6 +7,13 @@ import (
 	"net/http"
 )
 
+const (
+	ErrUsernameRequired = "username is required"
+	ErrPasswordRequired = "password is required"
+	ErrTokenRequired    = "token is required"
+	ErrInternalServer   = "internal server error"
+)
+
 func (h *Handler) Login(ctx context.Context, input authmodel.LoginRequest) (*authmodel.LoginResponse, error) {
 	if err := validateLoginRequest(input); err != nil {
 		return nil, err

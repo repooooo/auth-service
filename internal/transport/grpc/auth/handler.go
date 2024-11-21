@@ -7,6 +7,13 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+const (
+	ErrUsernameRequired = "username is required"
+	ErrPasswordRequired = "password is required"
+	ErrTokenRequired    = "token is required"
+	ErrInternalServer   = "internal server error"
+)
+
 func (s *serverAPI) Login(ctx context.Context, request *authpb.LoginRequest) (*authpb.LoginResponse, error) {
 	if err := validateLoginRequest(request); err != nil {
 		return nil, err
