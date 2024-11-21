@@ -1,11 +1,11 @@
 # Where are all the schema files located? globs are supported eg  src/**/*.graphqls
 schema:
-  - internal/app/graph/schema.graphqls
+  - ./internal/transport/http/graph/auth/schema.graphqls
 
 # Where should the generated server code go?
 exec:
-  filename: internal/app/graph/generated.go
-  package: graph
+  filename: ./internal/transport/http/graph/auth/generated.go
+  package: authgraph
 
 # Uncomment to enable federation
 # federation:
@@ -17,14 +17,14 @@ exec:
 
 # Where should any generated models go?
 model:
-  filename: internal/app/graph/model/models_gen.go
+  filename: ./internal/transport/http/graph/auth/model/models_gen.go
   package: model
 
 # Where should the resolver implementations go?
 resolver:
   layout: follow-schema
-  dir: internal/transport/graph
-  package: graph
+  dir: ./internal/transport/http/graph/auth
+  package: authgraph
   filename_template: "{name}.resolvers.go"
   # Optional: turn on to not generate template comments above resolvers
   # omit_template_comment: false

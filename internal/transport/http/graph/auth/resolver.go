@@ -1,4 +1,4 @@
-package graph
+package authgraph
 
 // This file will not be regenerated automatically.
 //
@@ -9,5 +9,7 @@ type Resolver struct {
 }
 
 func NewResolver(auth Auth) *Resolver {
-	return &Resolver{auth: auth}
+	return &Resolver{
+		auth: auth,
+	}
 }

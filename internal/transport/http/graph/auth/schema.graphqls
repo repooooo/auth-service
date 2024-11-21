@@ -1,0 +1,24 @@
+input LoginRequest {
+  username: String!
+  password: String!
+}
+
+type LoginResponse {
+  success: Boolean!
+  message: String!
+  token: String!
+}
+
+input LogoutRequest {
+  token: String!
+}
+
+type LogoutResponse {
+  success: Boolean!
+  message: String!
+}
+
+type Mutation {
+  login(input: LoginRequest!): LoginResponse!
+  logout(input: LogoutRequest!): LogoutResponse!
+}

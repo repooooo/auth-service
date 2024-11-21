@@ -6,9 +6,8 @@ import (
 	"fmt"
 	graphhandler "github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/repooooo/auth-service/internal/app/graph"
-	authgraph "github.com/repooooo/auth-service/internal/transport/graph"
-	"github.com/repooooo/auth-service/internal/transport/http/handler"
+	"github.com/repooooo/auth-service/internal/transport/http/graph/auth"
+	"github.com/repooooo/auth-service/internal/transport/http/rest/handler"
 	"github.com/repooooo/go-utils/sl"
 	"log/slog"
 	"net/http"
@@ -49,12 +48,27 @@ func New(
 	authService Auth,
 	port int,
 ) *App {
+	// transport.http.rest.handler
 	http.HandleFunc("/health", handler.HealthCheck)
 
-	//GraphQLHandlers
-	srv := graphhandler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: authgraph.NewResolver(authService)}))
-	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	http.Handle("/query", srv)
+	// transport.http.graph.auth
+	graphAuth := graphhandler.NewDefaultServer(
+		authgraph.NewExecutableSchema(
+			authgraph.Config{
+				Resolvers: authgraph.NewResolver(authService),
+			},
+		),
+	)
+	http.Handle("/auth", graphAuth)
+
+	// GraphQL playground
+	http.Handle(
+		"/playground",
+		playground.Handler(
+			"GraphQL playground for auth",
+			"/auth",
+		),
+	)
 
 	httpServer := &http.Server{
 		Addr:         ":" + strconv.Itoa(port),
