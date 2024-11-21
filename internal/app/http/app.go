@@ -4,6 +4,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	graphhandler "github.com/99designs/gqlgen/graphql/handler"
+	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/repooooo/auth-service/internal/app/graph"
+	authgraph "github.com/repooooo/auth-service/internal/transport/graph"
 	"github.com/repooooo/auth-service/internal/transport/http/handler"
 	"github.com/repooooo/go-utils/sl"
 	"log/slog"
@@ -19,11 +23,38 @@ type App struct {
 	port       int
 }
 
+type Auth interface {
+	Login(
+		ctx context.Context,
+		username string,
+		password string,
+	) (
+		success bool,
+		message string,
+		token string,
+		err error,
+	)
+	Logout(
+		ctx context.Context,
+		token string,
+	) (
+		success bool,
+		message string,
+		err error,
+	)
+}
+
 func New(
 	log *slog.Logger,
+	authService Auth,
 	port int,
 ) *App {
 	http.HandleFunc("/health", handler.HealthCheck)
+
+	//GraphQLHandlers
+	srv := graphhandler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: authgraph.NewResolver(authService)}))
+	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	http.Handle("/query", srv)
 
 	httpServer := &http.Server{
 		Addr:         ":" + strconv.Itoa(port),

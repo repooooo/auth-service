@@ -1,0 +1,31 @@
+
+type User {
+  id: ID!
+  name: String!
+}
+
+input RefreshTokenInput{
+  token: String!
+}
+
+input NewUser {
+  username: String!
+  password: String!
+}
+
+input Login {
+  username: String!
+  password: String!
+}
+
+type LoginResp {
+  success: Boolean!
+  message: String!
+  token: String!
+}
+
+type Mutation {
+  createUser(input: NewUser!): String!
+  login(input: Login!): LoginResp!
+  refreshToken(input: RefreshTokenInput!): String!
+}
