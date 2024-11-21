@@ -13,46 +13,18 @@ type Auth struct {
 }
 
 type Provider interface {
-	Login(
-		ctx context.Context,
-		username string,
-		password string,
-	) (
-		success bool,
-		message string,
-		token string,
-		err error,
-	)
-	Logout(
-		ctx context.Context,
-		token string,
-	) (
-		success bool,
-		message string,
-		err error,
-	)
+	Login(ctx context.Context, username string, password string) (success bool, message string, token string, err error)
+	Logout(ctx context.Context, token string) (success bool, message string, err error)
 }
 
-func New(
-	log *slog.Logger,
-	provider Provider,
-) *Auth {
+func New(log *slog.Logger, provider Provider) *Auth {
 	return &Auth{
 		log:      log,
 		provider: provider,
 	}
 }
 
-func (a *Auth) Login(
-	ctx context.Context,
-	username string,
-	password string,
-) (
-	bool,
-	string,
-	string,
-	error,
-) {
+func (a *Auth) Login(ctx context.Context, username string, password string) (bool, string, string, error) {
 	const operation = "Auth.Login"
 
 	log := a.log.With(
@@ -74,14 +46,7 @@ func (a *Auth) Login(
 	return success, message, token, nil
 }
 
-func (a *Auth) Logout(
-	ctx context.Context,
-	token string,
-) (
-	bool,
-	string,
-	error,
-) {
+func (a *Auth) Logout(ctx context.Context, token string) (bool, string, error) {
 	const operation = "Auth.Logout"
 
 	log := a.log.With(
