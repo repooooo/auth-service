@@ -5,7 +5,7 @@ go 1.23
 require (
 	github.com/ilyakaznacheev/cleanenv v1.5.0 // indirect
 	github.com/repooooo/go-utils v0.0.5
-	github.com/repooooo/protos v0.0.0-20241113151845-d9c5e16ad36a
+	github.com/repooooo/protos v0.0.1
 	google.golang.org/grpc v1.68.0
 )
 
@@ -14,7 +14,6 @@ require (
 	github.com/brianvoe/gofakeit/v6 v6.28.0
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.1.0
 	github.com/stretchr/testify v1.9.0
-	github.com/vektah/gqlparser/v2 v2.5.19
 	gorm.io/driver/postgres v1.5.9
 	gorm.io/gorm v1.25.12
 )

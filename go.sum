@@ -67,6 +67,10 @@ github.com/repooooo/graphqls v0.0.5 h1:BjTMeZecDXEKFF4R7PqK7VTWARP3xBoZtaFAP/w0/
 github.com/repooooo/graphqls v0.0.5/go.mod h1:ZFmp7npgujuhDzw1G1M0tMgk9CwMk9e08fe7X8iFoAs=
 github.com/repooooo/protos v0.0.0-20241113151845-d9c5e16ad36a h1:JrswTYWrPZH5Jr4ZjbJbNys21vgzEoqGOCdpXfRtrYM=
 github.com/repooooo/protos v0.0.0-20241113151845-d9c5e16ad36a/go.mod h1:JMe7AIVhbF3hwc2tdZJO8kybpydGHN3XPyndpC5R7QQ=
+github.com/repooooo/protos v0.0.0-20241118205023-1636f6514402 h1:Ja0tU8uCLm1ZzJyL4PneUz3ZpX2/uGtT2JEPx54w52I=
+github.com/repooooo/protos v0.0.0-20241118205023-1636f6514402/go.mod h1:Jw8CCF6r86S+89j5kgRtPG/bhtC8jU3xacmDa3XukTU=
+github.com/repooooo/protos v0.0.1 h1:dqwOuM64Kv66vpl8BAQ5JLjt6Z/fFUMg6sjHyxXCfic=
+github.com/repooooo/protos v0.0.1/go.mod h1:drZgRLuHehVsMrkgtNSE1BORfhZsqQxUBmAnmbq/apg=
 github.com/rogpeppe/go-internal v1.13.1 h1:KvO1DLK/DRN07sQ1LQKScxyZJuNnedQ5/wKSR38lUII=
 github.com/rogpeppe/go-internal v1.13.1/go.mod h1:uMEvuHeurkdAXX61udpOXGD/AzZDWNMNyH2VO9fmH0o=
 github.com/sergi/go-diff v1.3.1 h1:xkr+Oxo4BOQKmkn/B9eMK0g5Kg/983T9DqqPHwYqD+8=
