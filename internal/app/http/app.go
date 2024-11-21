@@ -54,8 +54,15 @@ func New(
 	http.HandleFunc("/health", handler.HealthCheck)
 
 	// transport.http.graph.auth
-	graphAuth := graphhandler.NewDefaultServer(authgen.NewExecutableSchema(
-		authgen.Config{Resolvers: authresolver.NewResolver(authgraph.NewAuthHandler(authService))}))
+	graphAuth := graphhandler.NewDefaultServer(
+		authgen.NewExecutableSchema(
+			authgen.Config{
+				Resolvers: authresolver.NewResolver(
+					authgraph.NewHandler(authService),
+				),
+			},
+		),
+	)
 
 	http.Handle("/auth", graphAuth)
 
