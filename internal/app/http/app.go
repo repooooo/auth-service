@@ -9,6 +9,8 @@ import (
 	"github.com/repooooo/auth-service/internal/transport/http/graph/auth"
 	"github.com/repooooo/auth-service/internal/transport/http/rest/handler"
 	"github.com/repooooo/go-utils/sl"
+	"github.com/repooooo/graphqls/go/gen/auth"
+	authresolver "github.com/repooooo/graphqls/go/resolvers/auth"
 	"log/slog"
 	"net/http"
 	"strconv"
@@ -52,13 +54,9 @@ func New(
 	http.HandleFunc("/health", handler.HealthCheck)
 
 	// transport.http.graph.auth
-	graphAuth := graphhandler.NewDefaultServer(
-		authgraph.NewExecutableSchema(
-			authgraph.Config{
-				Resolvers: authgraph.NewResolver(authService),
-			},
-		),
-	)
+	graphAuth := graphhandler.NewDefaultServer(authgen.NewExecutableSchema(
+		authgen.Config{Resolvers: authresolver.NewResolver(authgraph.NewAuthHandler(authService))}))
+
 	http.Handle("/auth", graphAuth)
 
 	// GraphQL playground
